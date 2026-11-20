@@ -87,7 +87,7 @@
       card.classList.toggle('active', showPill && !first);
       cardScale += ((showPill ? 1 : 0) - cardScale) * 0.15;
       ringScale += ((inWindow ? (hovering ? 1.6 : 1) : 0) - ringScale) * 0.15;
-      card.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate(-50%, -50%) scale(${cardScale})`;
+      card.style.transform = `translate3d(${cx + 18}px, ${cy + 26}px, 0) scale(${cardScale})`;
       ring.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%) scale(${ringScale})`;
       requestAnimationFrame(tick);
     };
@@ -104,20 +104,15 @@
     });
     const isOff = () => svg.classList.contains('off');
     const setOff = (off) => {
-      svg.classList.toggle('off', off); svg.classList.remove('peek');
+      svg.classList.toggle('off', off);
       chip.setAttribute('aria-pressed', String(off));
       chipText.textContent = off ? '다시 써볼까요?' : '가면을 벗어봐';
       window.__setCursorLabel && window.__setCursorLabel(off
         ? '<span class="text-white">다시</span> 웃어볼까?'
         : '<span class="text-white">가면을</span> 벗어봐');
     };
-    const peek = (on) => { if (!isOff()) svg.classList.toggle('peek', on); };
     head.addEventListener('click', () => setOff(!isOff()));
     chip.addEventListener('click', () => setOff(!isOff()));
-    ['mouseenter', 'focus'].forEach((ev) => chip.addEventListener(ev, () => peek(true)));
-    ['mouseleave', 'blur'].forEach((ev) => chip.addEventListener(ev, () => peek(false)));
-    head.addEventListener('pointerdown', () => peek(true));
-    ['pointerup', 'pointercancel', 'pointerleave'].forEach((ev) => head.addEventListener(ev, () => peek(false)));
   }
 
   /* ============================================================

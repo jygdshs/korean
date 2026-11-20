@@ -584,3 +584,7 @@ details.note summary:hover { color: var(--gt); }
 .mask-svg.off .mask-layer { transform: translate(64px,-36px) rotate(-34deg); opacity: 0; filter: drop-shadow(-4px 10px 8px rgba(28,25,23,.2)); transition: transform .7s cubic-bezier(.3,.9,.3,1), opacity .5s ease .1s, filter .4s ease; }
 .mc-ico { transition: transform .35s var(--ease2); }
 .mask-chip:hover .mc-ico { transform: rotate(-90deg); }
+
+/* ---- v5: hover only hints (slight tilt), click does the peel; cursor pill sits beside the pointer, never on the face ---- */
+.glass-cursor-card { transform-origin: 0 0; }
+.mask-svg:not(.off) .head:hover .mask-layer, .mask-svg.peek .mask-layer { transform: rotate(-3.5deg) translate(1px,-2px); filter: drop-shadow(-2px 5px 4px rgba(28,25,23,.16)); }
