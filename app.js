@@ -50,7 +50,7 @@
         wrap.appendChild(inner); logo.appendChild(wrap);
       });
     }
-    $$('.mega').forEach((m, i) => splitWords(m, 0.1 + i * 0.5, 0.1));
+    $$('.mega').forEach((m, i) => splitWords(m, 0.05 + i * 0.7, 0.1));
   }
 
   // card-level reveal: sequential groups so long paragraphs don't take forever
@@ -97,17 +97,27 @@
   /* ---------- hero mask: eyes follow pointer, click = take it off ---------- */
   function initMask() {
     const svg = $('#mask'); if (!svg) return;
-    const pupils = $('.pupils', svg);
+    const pupils = $('.pupils', svg), head = $('.head', svg), chip = $('#maskChip'), chipText = $('.mc-text', chip);
     document.addEventListener('mousemove', (e) => {
       const dx = (e.clientX / innerWidth - 0.5) * 2, dy = (e.clientY / innerHeight - 0.5) * 2;
       pupils.style.transform = `translate(${(dx * 5).toFixed(1)}px, ${(dy * 3).toFixed(1)}px)`;
     });
-    $('.head', svg).addEventListener('click', () => {
-      const off = svg.classList.toggle('off');
+    const isOff = () => svg.classList.contains('off');
+    const setOff = (off) => {
+      svg.classList.toggle('off', off); svg.classList.remove('peek');
+      chip.setAttribute('aria-pressed', String(off));
+      chipText.textContent = off ? '다시 써볼까요?' : '가면을 벗어봐';
       window.__setCursorLabel && window.__setCursorLabel(off
         ? '<span class="text-white">다시</span> 웃어볼까?'
         : '<span class="text-white">가면을</span> 벗어봐');
-    });
+    };
+    const peek = (on) => { if (!isOff()) svg.classList.toggle('peek', on); };
+    head.addEventListener('click', () => setOff(!isOff()));
+    chip.addEventListener('click', () => setOff(!isOff()));
+    ['mouseenter', 'focus'].forEach((ev) => chip.addEventListener(ev, () => peek(true)));
+    ['mouseleave', 'blur'].forEach((ev) => chip.addEventListener(ev, () => peek(false)));
+    head.addEventListener('pointerdown', () => peek(true));
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach((ev) => head.addEventListener(ev, () => peek(false)));
   }
 
   /* ============================================================

@@ -75,9 +75,10 @@ body[data-view="test"] #view-test { display: block; }
 /* ============================================================
    HOME
    ============================================================ */
-.hero-visual { position: absolute; inset: 76px 0 0; z-index: 2; pointer-events: none; }
+.hero-visual { position: absolute; inset: 76px 0 0 5vw; z-index: 2; pointer-events: none; opacity: 0; animation: fu 1s var(--ease2) .3s forwards; }
 .hero-glow { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 36% 54% at 50% 54%, rgba(255,214,102,.5), rgba(255,143,177,.2) 55%, transparent 76%); animation: breathe 7s ease-in-out infinite; }
 @keyframes breathe { 0%,100% { opacity: .6; transform: scale(.97); } 50% { opacity: 1; transform: scale(1.03); } }
+.jester-box { position: absolute; top: 0; bottom: 0; left: 50%; height: 100%; aspect-ratio: 400 / 420; transform: translateX(-50%); }
 .mask-svg { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; overflow: visible; }
 .mask-svg .b { stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
 .mask-svg .limb-o { fill: none; stroke: var(--ink); stroke-width: 25; stroke-linecap: round; }
@@ -367,8 +368,6 @@ details.note li { margin: .25rem 0 .25rem 1.1rem; }
 .pillnav { display: flex; gap: 4px; padding: 5px; border-radius: 9999px; background: rgba(255,255,255,.72); border: 1px solid var(--hair); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: inset 0 1px 0 rgba(255,255,255,.9), var(--shadow-1); }
 .pillnav a { padding: .55rem 1.05rem; border-radius: 9999px; font-size: .9rem; color: var(--mut); letter-spacing: -.01em; white-space: nowrap; }
 .pillnav a[aria-current="page"] { background: var(--g); color: var(--ink); font-weight: 600; }
-.cta-dark { justify-self: end; display: inline-flex; align-items: center; gap: .6rem; padding: .7rem 1.25rem; border-radius: 9999px; background: var(--ink); color: var(--paper); font-weight: 600; font-size: .9rem; }
-.cta-dark i { font-style: normal; font-family: var(--mono); }
 
 #view-home { position: relative; height: 100vh; height: 100svh; min-height: 640px; overflow: hidden; }
 .mega { position: absolute; z-index: 1; margin: 0; font-family: var(--serif); font-style: italic; font-weight: 600; letter-spacing: -.035em; line-height: .94; color: var(--ink); pointer-events: none; }
@@ -398,10 +397,8 @@ details.note li { margin: .25rem 0 .25rem 1.1rem; }
 
 @media (max-width: 900px) {
   .topbar { grid-template-columns: auto 1fr; }
-  .pillnav { display: none; }
   .brand b { font-size: 1.05rem; }
-  .cta-dark { padding: .6rem 1rem; }
-  body[data-view="home"] { overflow-y: auto; }
+    body[data-view="home"] { overflow-y: auto; }
   #view-home { height: auto; min-height: 100svh; overflow: visible; display: flex; flex-direction: column; gap: 14px; padding: 84px 20px 28px; }
   #view-home > * { position: relative !important; inset: auto !important; }
   .mega-a { font-size: clamp(3.2rem, 17vw, 5rem); }
@@ -481,11 +478,6 @@ body[data-res] .test-wrap { max-width: 1060px; }
 .pill-btn:active { transform: scale(.98); }
 .text-btn { transition: border-color .2s, letter-spacing .25s ease-out; }
 .text-btn:hover { border-color: var(--ink); letter-spacing: .01em; }
-.cta-dark { transition: transform .2s ease-out, box-shadow .25s ease-out; }
-.cta-dark i { display: inline-block; transition: transform .25s var(--ease2); }
-.cta-dark:hover { transform: translateY(-1px); box-shadow: 0 10px 26px rgba(28,25,23,.25); }
-.cta-dark:hover i { transform: translateX(3px); }
-.cta-dark:active { transform: scale(.97); }
 .pillnav a { transition: color .2s ease-out, background .2s ease-out, transform .15s ease-out; }
 .pillnav a:hover:not([aria-current]) { background: rgba(28,25,23,.06); color: var(--ink); }
 .pillnav a:active { transform: scale(.96); }
@@ -519,3 +511,69 @@ body[data-res] .test-wrap { max-width: 1060px; }
 details.note summary { transition: color .2s; }
 details.note summary:hover { color: var(--gt); }
 :focus-visible { outline: 2px solid var(--gt); outline-offset: 3px; }
+
+/* ============================================================
+   HERO v3 — overlap fix, chip, tactile UI, balance, stagger
+   ============================================================ */
+/* 1. no collision between headline and jester */
+.mega-a { font-size: min(6.2vw, 10.5vh); }
+.ko-title { font-weight: 800; line-height: 1.32; letter-spacing: -.03em; font-size: 1.4rem; }
+.hero-copy p.lead { color: rgba(28,25,23,.78); font-weight: 450; }
+@media (min-width: 901px) and (max-width: 1100px) { .mega-a { font-size: 5.2vw; } .hero-visual { left: 9vw; } .jester-box { height: 88%; top: 8%; } .peek-card { width: 90px; height: 132px; padding: 10px; } .peek { gap: 8px; } }
+
+/* layered mask: the smiling layer lifts to reveal the calm face */
+.mask-svg .mask-layer { transform-origin: 200px 120px; transition: transform .55s var(--ease2), opacity .45s ease; }
+.mask-svg:not(.off) .head:hover .mask-layer, .mask-svg.peek .mask-layer { transform: translateY(-34px) rotate(-5deg); }
+.mask-svg.off .mask-layer { transform: translateY(-96px) rotate(-14deg); opacity: 0; pointer-events: none; }
+.mask-svg.off .wave { animation: none; }
+
+/* 2. floating chip */
+.mask-chip {
+  position: absolute; z-index: 4; left: 79%; top: 38%; pointer-events: auto; display: inline-flex; align-items: center; gap: .55rem; padding: .5rem 1rem .5rem .5rem;
+  border-radius: 9999px; background: #fff; border: 1px solid var(--hair); border-bottom: 3px solid rgba(28,25,23,.22); box-shadow: 0 10px 26px rgba(28,25,23,.12), inset 0 1px 0 #fff;
+  font-weight: 700; font-size: .9rem; letter-spacing: -.02em; white-space: nowrap; animation: chip-float 3.2s ease-in-out infinite;
+  transition: transform .18s ease-out, box-shadow .2s ease-out, background .2s;
+}
+.mask-chip::before { content: ''; position: absolute; left: -6px; top: 50%; width: 12px; height: 12px; background: #fff; border-left: 1px solid var(--hair); border-bottom: 1px solid var(--hair); transform: translateY(-50%) rotate(45deg); }
+.mc-ico { width: 30px; height: 30px; border-radius: 50%; background: var(--g); display: grid; place-items: center; transition: transform .45s var(--ease2); }
+.mc-ico svg { width: 16px; height: 16px; }
+.mask-chip:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 16px 34px rgba(28,25,23,.18), inset 0 1px 0 #fff; }
+.mask-chip:hover .mc-ico { transform: rotate(-200deg); }
+.mask-chip:active { transform: scale(.96) translateY(1px); border-bottom-width: 2px; }
+.mask-chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.mask-chip[aria-pressed="true"]::before { background: var(--ink); border-color: var(--ink); }
+@keyframes chip-float { 0%,100% { translate: 0 0; } 50% { translate: 0 -7px; } }
+
+/* 3. tactile depth */
+.peek-card, .pill-btn, .btn, .circle { border-bottom: 3px solid rgba(28,25,23,.20); box-shadow: 0 8px 24px rgba(28,25,23,.08), inset 0 1px 0 rgba(255,255,255,.9); }
+.peek-card.on, .pill-btn, .btn { border-bottom-color: rgba(0,0,0,.55); }
+.btn.line, .circle { border-bottom-color: rgba(28,25,23,.22); }
+.peek-card { width: 122px; height: 164px; }
+.peek-card:hover, .pill-btn:hover, .btn:hover, .circle:hover:not([disabled]) { box-shadow: 0 16px 36px rgba(28,25,23,.16), inset 0 1px 0 rgba(255,255,255,.9); }
+.peek-card:active, .pill-btn:active, .btn:active, .circle:active:not([disabled]) { transform: scale(.96) translateY(1px); border-bottom-width: 2px; box-shadow: 0 3px 10px rgba(28,25,23,.12); transition-duration: .1s; }
+
+/* 4. balance: stronger CTA, quieter watermark */
+.mega-b { font-size: clamp(2rem, 4.2vw, 4rem); opacity: .55; bottom: clamp(36px, 6vh, 64px); }
+.pill-btn { padding: .65rem .65rem .65rem 1.9rem; font-size: 1.1rem; gap: 1.1rem; }
+.pill-btn .plus { width: 50px; height: 50px; font-size: 1.5rem; }
+.hero-copy { gap: 1.1rem; }
+
+/* 5. stagger entrance: title -> jester -> cards -> button -> watermark */
+.hero-copy { animation-delay: .6s; }
+.peek { animation-delay: .45s; }
+.note-chip { opacity: 0; animation: fu 1s var(--ease2) .9s forwards; }
+.mega-b { animation: fu 1s var(--ease2) .8s both; }
+#grain { opacity: .045; }
+
+@media (max-width: 900px) {
+  .topbar { grid-template-columns: auto 1fr; }
+  .brand span { display: none; }
+  .pillnav { display: flex; justify-self: end; padding: 3px; }
+  .pillnav a { padding: .42rem .8rem; font-size: .82rem; }
+  .pillnav a.opt { display: none; }
+  .hero-visual { left: 0 !important; }
+  .mask-chip { left: auto; right: -2px; top: 60%; }
+  .mega-a { font-size: clamp(3.2rem, 16vw, 4.8rem); }
+  .peek-card { width: auto; height: 124px; }
+}
+@media (prefers-reduced-motion: reduce) { .mask-chip { animation: none; } }
