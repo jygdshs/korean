@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>인간실격 — 당신의 가면은 안녕한가요?</title>
+<meta name="description" content="다자이 오사무의 『인간 실격』으로 돌아보는 현대인의 가면. 카드뉴스와 가면 검사.">
+<meta name="theme-color" content="#f4efe6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Noto+Serif+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-view="home">
+<div id="grain" aria-hidden="true"></div>
+
+<!-- top bar (cards / test) -->
+<header class="topbar">
+  <a class="brand" href="#/"><i></i>인간실격</a>
+  <nav class="topnav" aria-label="주 메뉴">
+    <a href="#/cards" data-nav="cards">카드뉴스</a>
+    <a href="#/test" data-nav="test">가면 검사</a>
+  </nav>
+</header>
+
+<!-- ======================= HOME ======================= -->
+<div id="view-home" class="view">
+  <main class="hero-content">
+    <h1 class="hero-title">당신의 가면은 <br> 안녕한가요?</h1>
+    <div class="hero-actions">
+      <a class="hero-btn" href="#/cards"><span class="btn-text">카드뉴스 보기</span><span class="blinking-dot"></span></a>
+      <a class="hero-btn ghost" href="#/test"><span class="btn-text">가면 검사하기</span></a>
+    </div>
+  </main>
+
+  <div class="hero-visual" aria-hidden="true">
+    <div class="hero-glow"></div>
+    <svg id="mask" class="mask-svg" viewBox="0 30 400 420" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <pattern id="harl" width="26" height="26" patternUnits="userSpaceOnUse"><rect width="26" height="26" fill="#fff6e0"/><path d="M13 0 L26 13 L13 26 L0 13Z" fill="#ff7a8a" stroke="rgba(23,20,28,.35)" stroke-width=".8"/></pattern>
+        <pattern id="stripe" width="40" height="18" patternUnits="userSpaceOnUse"><rect width="40" height="18" fill="#4cb7a5"/><rect width="40" height="9" fill="#7fd3c4"/></pattern>
+      </defs>
+      <g class="conf"><circle cx="48" cy="170" r="9" fill="#ffd35c"/></g><g class="conf"><path d="M350 150 l10 14 -10 14 -10 -14z" fill="#4cb7a5"/></g><g class="conf"><path d="M64 270 l11 -3 -4 11z" fill="#ff7a8a"/></g><g class="conf"><circle cx="340" cy="290" r="7" fill="#ff7a8a"/></g><g class="conf"><path d="M30 60 l9 12 -9 12 -9 -12z" fill="#ff7a8a" opacity=".8"/></g><g class="conf"><circle cx="372" cy="60" r="8" fill="#4cb7a5"/></g>
+      <ellipse class="shadow" cx="200" cy="438" rx="120" ry="9"/>
+      <g class="bob">
+        <path class="limb-o" d="M170 332 L170 394" style="stroke-width:32"/><path class="limb-o" d="M230 332 L230 394" style="stroke-width:32"/>
+        <path class="limb" d="M170 332 L170 394" stroke="url(#stripe)" style="stroke-width:27"/><path class="limb" d="M230 332 L230 394" stroke="url(#harl)" style="stroke-width:27"/>
+        <path class="b" d="M192 388 L150 390 Q116 398 106 430 Q128 416 152 426 L192 426Z" fill="#ffd35c"/>
+        <path class="b" d="M208 388 L250 390 Q284 398 294 430 Q272 416 248 426 L208 426Z" fill="#4cb7a5"/>
+        <circle class="pom" cx="104" cy="432" r="10"/><circle class="pom" cx="296" cy="432" r="10"/>
+        <path class="limb-o" d="M158 254 Q116 268 110 318"/><path class="limb" d="M158 254 Q116 268 110 318" stroke="#4cb7a5"/>
+        <circle class="hand" cx="110" cy="324" r="12"/>
+        <path class="b" d="M156 240 Q200 254 200 254 L200 338 L150 338Z" fill="url(#harl)"/>
+        <path class="b" d="M244 240 Q200 254 200 254 L200 338 L250 338Z" fill="#ff7a8a"/>
+        <circle class="btn" cx="200" cy="270" r="5.5"/><circle class="btn" cx="200" cy="294" r="5.5"/><circle class="btn" cx="200" cy="318" r="5.5"/>
+        <g class="wave"><path class="limb-o" d="M244 254 Q292 254 304 208"/><path class="limb" d="M244 254 Q292 254 304 208" stroke="#ffd35c"/><circle class="hand" cx="305" cy="200" r="12"/></g>
+        <path class="ruff" d="M148 232 q10 18 20 0 q10 18 20 0 q10 18 20 0 q10 18 20 0 q10 18 20 0 L248 220 Q198 236 148 220Z"/>
+        <g class="head">
+          <ellipse class="face" cx="200" cy="178" rx="66" ry="58"/>
+          <ellipse class="blush" cx="152" cy="200" rx="14" ry="8.5"/><ellipse class="blush" cx="248" cy="200" rx="14" ry="8.5"/>
+          <path class="feat" d="M156 154 Q172 144 188 152"/><path class="feat" d="M212 152 Q228 144 244 154"/>
+          <g class="pupils" style="transition:transform .25s ease-out">
+            <ellipse class="eyeball" cx="172" cy="178" rx="9" ry="11"/><circle class="shine" cx="175" cy="173" r="3.2"/>
+            <ellipse class="eyeball" cx="228" cy="178" rx="9" ry="11"/><circle class="shine" cx="231" cy="173" r="3.2"/>
+          </g>
+          <path class="lid" d="M160 177 Q172 167 184 177 Z"/><path class="lid" d="M216 177 Q228 167 240 177 Z"/>
+          <circle class="nose" cx="200" cy="193" r="3.4"/>
+          <path class="mouth smile" d="M172 206 Q200 242 228 206 Z"/><ellipse class="tongue" cx="200" cy="221" rx="10" ry="5"/>
+          <path class="mouth flat" d="M186 214 Q200 219 214 214"/>
+        </g>
+        <path class="b" d="M146 132 C130 70 70 52 40 104 C80 86 104 112 116 154 L150 150Z" fill="#4cb7a5"/>
+        <path class="b" d="M254 132 C270 70 330 52 360 104 C320 86 296 112 284 154 L250 150Z" fill="#ff7a8a"/>
+        <path class="b" d="M138 132 Q200 108 262 132 L264 152 Q200 130 136 152Z" fill="#ffd35c"/>
+        <circle class="pom" cx="38" cy="108" r="13"/><circle class="pom" cx="362" cy="108" r="13"/>
+      </g>
+    </svg>
+  </div>
+
+  <footer class="home-bar">
+    <h2 class="footer-logo-text">인간실격</h2>
+    <nav class="footer-links" aria-label="바로가기">
+      <a href="#/cards" class="footer-link">카드뉴스</a>
+      <a href="#/cards/3" class="footer-link">책 이야기</a>
+      <a href="#/cards/13" class="footer-link">해결 방법</a>
+      <a href="#/test" class="footer-link">가면 검사</a>
+    </nav>
+    <p class="footer-meta">다자이 오사무 · 1948<br>교육·성찰용 콘텐츠 · 의학적 진단 아님</p>
+  </footer>
+</div>
+
+<!-- ======================= CARD NEWS ======================= -->
+<div id="view-cards" class="view">
+  <section class="cards-stage" aria-label="카드뉴스">
+    <div class="deck-wrap">
+      <div class="progress" id="progress" aria-hidden="true"></div>
+      <div class="deck" id="deck" aria-live="polite"></div>
+      <div class="deck-ctrl">
+        <button class="circle" id="prev" type="button" aria-label="이전 카드"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <div class="deck-count" id="count"></div>
+        <button class="circle pri" id="next" type="button" aria-label="다음 카드"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ======================= TEST ======================= -->
+<div id="view-test" class="view">
+  <main class="test-wrap">
+
+    <section class="t-screen" id="t-intro">
+      <p class="t-eyebrow">Mask Test · 20 questions</p>
+      <h1 class="t-title">나의 <em>가면</em>은<br>지금 어느 정도일까</h1>
+      <p class="t-lead">요조의 궤적 — 익살로 시작해 피로와 자기 상실로 이어지는 흐름 — 을 두 개의 축으로 나눠 봤어요. 얼마나 가면을 쓰는지, 그리고 그 가면이 나에게 어떤 영향을 주는지.</p>
+      <div class="t-axes">
+        <div><b><i>A</i>가면 사용 정도</b><span>SNS 연출, 사회적 순응, 익살·회피 — 10문항</span></div>
+        <div><b><i>B</i>가면의 영향</b><span>소진, 자기소외, 고립, 발각 공포 — 10문항</span></div>
+      </div>
+      <div class="t-meta"><span>약 3분</span><span>5점 척도</span><span>응답은 저장되지 않아요</span></div>
+      <details class="note"><summary>시작하기 전에</summary>
+        <p>이 검사는 소설의 주제를 바탕으로 만든 <b>성찰용 도구</b>입니다. 타당도·신뢰도 검증을 거치지 않았고 <b>진단이 아닙니다.</b> 솔직한 첫 느낌으로 답해주세요. 정답도, ‘좋은 점수’도 없어요.</p>
+      </details>
+      <div><button class="btn btn-lg" id="t-start" type="button">검사 시작하기 <span class="blinking-dot" style="background:var(--ink)"></span></button></div>
+    </section>
+
+    <section class="t-screen" id="t-q" aria-live="polite">
+      <div class="q-top" id="q-top"></div>
+      <div class="bar"><i id="q-bar"></i></div>
+      <h2 class="q-text rv" id="q-text"></h2>
+      <p class="q-sub">요즘의 나를 떠올리며, 가장 가까운 쪽을 골라주세요.</p>
+      <div class="opts" id="q-opts"></div>
+      <div class="q-nav">
+        <button class="btn line" id="q-back" type="button">← 이전</button>
+        <span class="hint">키보드 1–5 로도 답할 수 있어요</span>
+      </div>
+    </section>
+
+    <section class="t-screen" id="t-part">
+      <div class="inter-num" aria-hidden="true">B</div>
+      <p class="t-eyebrow">Part B</p>
+      <h2 class="t-title" id="part-title" style="font-size:clamp(1.8rem,5vw,2.8rem)">이제, 그 가면이<br>나에게 <em>남긴 것</em>을 볼게요</h2>
+      <p class="t-lead">앞의 10문항은 내가 ‘어떻게 행동하는지’였다면, 이제는 그 결과로 ‘어떻게 느끼는지’를 묻습니다.</p>
+      <div><button class="btn btn-lg" id="part-go" type="button">계속하기 →</button></div>
+    </section>
+
+    <section class="t-screen" id="t-res" aria-live="polite"></section>
+  </main>
+</div>
+
+<!-- custom cursor -->
+<div id="cursor-ring" class="cursor-ring-outline" aria-hidden="true"></div>
+<div id="glass-card" class="glass-cursor-card" aria-hidden="true">
+  <span class="cursor-card-text" id="cursor-label"><span class="text-white">가면을</span> 벗어봐</span>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
