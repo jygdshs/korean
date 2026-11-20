@@ -577,3 +577,10 @@ details.note summary:hover { color: var(--gt); }
   .peek-card { width: auto; height: 124px; }
 }
 @media (prefers-reduced-motion: reduce) { .mask-chip { animation: none; } }
+
+/* ---- natural mask peel: hinged at the lower-left, lifts like a sticker ---- */
+.mask-svg .mask-layer { transform-origin: 150px 232px; transition: transform .55s cubic-bezier(.34,1.4,.64,1), opacity .4s ease, filter .4s ease; }
+.mask-svg:not(.off) .head:hover .mask-layer, .mask-svg.peek .mask-layer { transform: translate(2px,-4px) rotate(-16deg); filter: drop-shadow(-3px 7px 5px rgba(28,25,23,.24)); }
+.mask-svg.off .mask-layer { transform: translate(64px,-36px) rotate(-34deg); opacity: 0; filter: drop-shadow(-4px 10px 8px rgba(28,25,23,.2)); transition: transform .7s cubic-bezier(.3,.9,.3,1), opacity .5s ease .1s, filter .4s ease; }
+.mc-ico { transition: transform .35s var(--ease2); }
+.mask-chip:hover .mc-ico { transform: rotate(-90deg); }
