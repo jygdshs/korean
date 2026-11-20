@@ -50,8 +50,7 @@
         wrap.appendChild(inner); logo.appendChild(wrap);
       });
     }
-    const title = $('.hero-title');
-    if (title) splitWords(title, 0.1, 0.1);
+    $$('.mega').forEach((m, i) => splitWords(m, 0.1 + i * 0.5, 0.1));
   }
 
   // card-level reveal: sequential groups so long paragraphs don't take forever
@@ -76,7 +75,7 @@
     const interactive = 'a, button, .chip, .opt, summary, .progress i';
     document.addEventListener('mousemove', (e) => {
       mx = e.clientX; my = e.clientY; inWindow = true;
-      if (first) { cx = mx; cy = my; first = false; card.classList.add('active'); ring.classList.add('active'); }
+      if (first) { cx = mx; cy = my; first = false; ring.classList.add('active'); }
       hovering = !!e.target.closest(interactive);
       ring.classList.toggle('expanded', hovering);
     });
@@ -85,6 +84,7 @@
     const tick = () => {
       cx += (mx - cx) * 0.08; cy += (my - cy) * 0.08;
       const showPill = inWindow && !hovering && document.body.dataset.view === 'home';
+      card.classList.toggle('active', showPill && !first);
       cardScale += ((showPill ? 1 : 0) - cardScale) * 0.15;
       ringScale += ((inWindow ? (hovering ? 1.6 : 1) : 0) - ringScale) * 0.15;
       card.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate(-50%, -50%) scale(${cardScale})`;
@@ -240,10 +240,10 @@
       <p class="kicker fu">해결 방법</p>
       <h2 class="title rv">오늘 해볼 수 있는<br><em>네 가지</em></h2>
       <ol class="steps fu">
-        <li><b>가면에 이름 붙이기</b>“지금 나는 ‘괜찮은 사람’ 가면을 쓰는 중.” 알아차리면 선택이 생긴다.</li>
-        <li><b>한 사람에게 한 조각</b>가장 안전한 사람에게 작은 진심 하나. “사실 오늘 좀 힘들었어.”</li>
-        <li><b>가면 없는 10분</b>평가하는 사람이 없는 시간. 산책, 손글씨, 혼잣말.</li>
-        <li><b>‘일부러’ 점검</b>말하기 전, “내가 원해서? 미움받기 싫어서?” 한 번만 묻기.</li>
+        <li><b>가면에 이름 붙이기</b>“지금 나는 ‘괜찮은 사람’ 가면 중.” 알아차리면 선택이 생긴다.</li>
+        <li><b>한 사람에게 한 조각</b>안전한 사람에게 작은 진심 하나. “오늘 좀 힘들었어.”</li>
+        <li><b>가면 없는 10분</b>평가하는 눈이 없는 시간. 산책, 손글씨, 혼잣말.</li>
+        <li><b>‘일부러’ 점검</b>말하기 전 “내가 원해서? 미움받기 싫어서?” 한 번 묻기.</li>
       </ol>
       <p class="small fu">버거운 상태가 이어진다면 전문가의 도움을 받는 것도 좋은 선택이에요.</p>` },
 
@@ -368,6 +368,7 @@
   const T = { i: 0, ans: new Array(Q.length).fill(0) };
 
   function showT(name) {
+    document.body.toggleAttribute('data-res', name === 'res');
     ['intro', 'q', 'part', 'res'].forEach((k) => tEl[k].classList.toggle('show', k === name));
     window.scrollTo({ top: 0 });
   }
@@ -425,42 +426,42 @@
 
     const quad = (x, y, txt, on) => `<text class="q-l${on ? ' act' : ''}" x="${x}" y="${y}" text-anchor="${x < 160 ? 'start' : 'end'}">${txt}</text>`;
     tEl.res.innerHTML = `
-      <div class="r-head">
-        <p class="t-eyebrow fu">Your mask</p>
+      <div class="bento">
+      <div class="bx bx-hero fu">
+        <p class="t-eyebrow">Your mask</p>
         <h2 class="r-type rv">${ty.name}</h2>
-        <span class="r-book fu">📖 ${ty.book}</span>
+        <span class="r-book">${ty.book}</span>
+        <p class="t-lead">${ty.desc}</p>
       </div>
-      <p class="t-lead fu">${ty.desc}</p>
-      <div class="r-grid fu">
-        <div class="r-card">
-          <h3>두 개의 축</h3>
-          <div class="score"><b data-count="${A}">0</b><span>/ 100</span><em>가면 사용 · ${level(A)}</em></div>
-          <div class="bar"><i data-w="${A}"></i></div>
-          <div class="score" style="margin-top:1.2rem"><b data-count="${B}">0</b><span>/ 100</span><em>영향 · ${level(B)}</em></div>
-          <div class="bar"><i data-w="${B}"></i></div>
-        </div>
-        <div class="r-card">
-          <h3>나의 위치</h3>
-          <svg class="matrix" viewBox="0 0 320 320" role="img" aria-label="가면 사용 ${A}점, 영향 ${B}점의 위치를 나타낸 도표">
-            <rect x="0.5" y="0.5" width="319" height="319" rx="18" fill="none" stroke="rgba(23,20,28,.18)"/>
-            <line x1="160" y1="8" x2="160" y2="312" stroke="rgba(23,20,28,.14)" stroke-dasharray="3 5"/>
-            <line x1="8" y1="160" x2="312" y2="160" stroke="rgba(23,20,28,.14)" stroke-dasharray="3 5"/>
-            ${quad(16, 30, '맨얼굴인데 지친 사람', key === 'tired')}${quad(304, 30, '가면에 먹히는 중', key === 'eaten')}
-            ${quad(16, 306, '맨얼굴에 가까운 사람', key === 'bare')}${quad(304, 306, '능숙한 광대', key === 'clown')}
-            <g class="dot" data-x="${(A / 100) * 280 + 20}" data-y="${300 - (B / 100) * 280}">
-              <circle r="16" fill="rgba(57,255,20,.18)"/><circle r="6.5" fill="#39FF14" style="filter:drop-shadow(0 0 8px #39FF14)"/>
-            </g>
-          </svg>
-          <p class="small" style="margin-top:.6rem;text-align:center;color:var(--dim)">가로 → 가면 사용 · 세로 ↑ 영향</p>
-        </div>
+      <div class="bx bx-score fu">
+        <h3>두 개의 축</h3>
+        <div class="score"><b data-count="${A}">0</b><span>/ 100</span><em>가면 사용 · ${level(A)}</em></div>
+        <div class="bar"><i data-w="${A}"></i></div>
+        <div class="score" style="margin-top:1.1rem"><b data-count="${B}">0</b><span>/ 100</span><em>영향 · ${level(B)}</em></div>
+        <div class="bar"><i data-w="${B}"></i></div>
       </div>
-      <div class="r-card fu">
+      <div class="bx bx-matrix fu">
+        <h3>나의 위치</h3>
+        <svg class="matrix" viewBox="0 0 320 320" role="img" aria-label="가면 사용 ${A}점, 영향 ${B}점의 위치를 나타낸 도표">
+          <rect x="0.5" y="0.5" width="319" height="319" rx="18" fill="none" stroke="rgba(28,25,23,.14)"/>
+          <line x1="160" y1="8" x2="160" y2="312" stroke="rgba(28,25,23,.12)" stroke-dasharray="3 5"/>
+          <line x1="8" y1="160" x2="312" y2="160" stroke="rgba(28,25,23,.12)" stroke-dasharray="3 5"/>
+          ${quad(16, 30, '맨얼굴인데 지친 사람', key === 'tired')}${quad(304, 30, '가면에 먹히는 중', key === 'eaten')}
+          ${quad(16, 306, '맨얼굴에 가까운 사람', key === 'bare')}${quad(304, 306, '능숙한 광대', key === 'clown')}
+          <g class="dot" data-x="${(A / 100) * 280 + 20}" data-y="${300 - (B / 100) * 280}">
+            <circle r="16" fill="rgba(255,111,150,.22)"/><circle r="6.5" fill="#FF6F96" stroke="#1C1917" stroke-width="1.5"/>
+          </g>
+        </svg>
+        <p class="small" style="margin-top:.6rem;text-align:center">가로 → 가면 사용 · 세로 ↑ 영향</p>
+      </div>
+      <div class="bx bx-sub fu">
         <h3>세부 영역</h3>
         <div class="sub">${subs.map((x) => `<div><span>${SUBS[x.k][0]}</span><span class="bar"><i data-w="${x.s}"></i></span><b>${x.s}</b></div>`).join('')}</div>
       </div>
-      <div class="r-card fu">
+      <div class="bx bx-tips fu">
         <h3>오늘의 한 걸음</h3>
         <ul class="r-list">${tips.map((t) => `<li>${t}</li>`).join('')}</ul>
+      </div>
       </div>
       ${B >= 75 ? `<div class="care fu"><b>요즘 많이 힘드셨다면, 혼자 견디지 않아도 괜찮아요.</b><br>자살예방 상담전화 <b>109</b> (24시간) · 정신건강 위기상담전화 <b>1577-0199</b></div>` : ''}
       <div class="r-actions fu">
@@ -520,7 +521,8 @@
     const view = name === 'cards' ? 'cards' : name === 'test' ? 'test' : 'home';
     const changed = document.body.dataset.view !== view;
     document.body.dataset.view = view;
-    $$('.topnav a').forEach((a) => { if (a.dataset.nav === view) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    const navKey = view === 'cards' ? ({ 3: 'book', 13: 'solve' }[parseInt(arg, 10)] || 'cards') : view;
+    $$('.pillnav a').forEach((a) => { if (a.dataset.nav === navKey) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
     if (view === 'home') {
       if (!homeInit) { homeInit = true; initHomeReveal(); }
       document.title = '인간실격 — 당신의 가면은 안녕한가요?';
