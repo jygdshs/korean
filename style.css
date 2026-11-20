@@ -139,6 +139,7 @@ body[data-view="home"] #view-home { display: flex; flex-direction: column; }
 .hero-btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); transform: translateY(-2px); box-shadow: 0 6px 30px rgba(20,18,24,0.090); }
 .hero-btn:active { transform: none; }
 .hero-btn.ghost { background: rgba(var(--paper-rgb),.35); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.hero-btn.ghost:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 .blinking-dot { width: 10px; height: 10px; background: var(--g); border-radius: 50%; position: relative; display: inline-block; animation: pulse-glow 2s infinite ease-in-out; }
 .blinking-dot::after { content: ''; position: absolute; inset: -5px; background: rgba(57,255,20,.45); border-radius: 50%; animation: wave-expand 2s infinite ease-in-out; }
 @keyframes pulse-glow {
