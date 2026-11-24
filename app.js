@@ -383,8 +383,13 @@
     const q = Q[T.i];
     tEl.qTop.innerHTML = `<b>Part ${q.axis} · ${q.axis === 'A' ? '가면 사용' : '가면의 영향'}</b><span>${String(T.i + 1).padStart(2, '0')} / ${Q.length}</span>`;
     tEl.bar.style.transform = `scaleX(${T.i / Q.length})`;
-    tEl.qText.textContent = q.text;
-    if (!reduce) { tEl.qText.classList.remove('rv'); tEl.qText.classList.add('rv'); splitWords(tEl.qText, 0, 0.035); }
+    // words go inside ONE inline wrapper: .q-text is a flex box, and direct word spans would become squeezed flex items
+    tEl.qText.replaceChildren();
+    const qIn = document.createElement('span');
+    qIn.className = 'q-in';
+    qIn.textContent = q.text;
+    tEl.qText.appendChild(qIn);
+    if (!reduce) splitWords(qIn, 0, 0.035);
     tEl.opts.innerHTML = LABELS.map((l, k) => `<button class="opt${T.ans[T.i] === k + 1 ? ' sel' : ''}" type="button" data-v="${k + 1}"><kbd>${k + 1}</kbd>${l}</button>`).join('');
     tEl.back.disabled = T.i === 0;
     showT('q');

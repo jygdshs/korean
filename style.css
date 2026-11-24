@@ -588,3 +588,6 @@ details.note summary:hover { color: var(--gt); }
 /* ---- v5: hover only hints (slight tilt), click does the peel; cursor pill sits beside the pointer, never on the face ---- */
 .glass-cursor-card { transform-origin: 0 0; }
 .mask-svg:not(.off) .head:hover .mask-layer, .mask-svg.peek .mask-layer { transform: rotate(-3.5deg) translate(1px,-2px); filter: drop-shadow(-2px 5px 4px rgba(28,25,23,.16)); }
+
+/* question text: normal inline flow so long sentences wrap instead of being squeezed */
+.q-text .q-in { display: block; width: 100%; }
